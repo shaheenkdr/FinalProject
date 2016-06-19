@@ -9,6 +9,7 @@ package com.example.oblivion.myapplication.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.jokepack.jokes.JokeWizard;
 
 import javax.inject.Named;
 
@@ -24,16 +25,18 @@ import javax.inject.Named;
                 packagePath = ""
         )
 )
-public class MyEndpoint {
+public class MyEndpoint
+{
 
     /**
-     * A simple endpoint method that takes a name and says Hi back
+     * A simple endpoint method that tells a joke
      */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi(@Named("name") String name) {
+    @ApiMethod(name = "tellJoke")
+    public MyBean tellJoke()
+    {
         MyBean response = new MyBean();
-        response.setData("The app is working. Whats more funny. . .hahaha");
-
+        JokeWizard joker = new JokeWizard();
+        response.setData(joker.returnJoke());
         return response;
     }
 
