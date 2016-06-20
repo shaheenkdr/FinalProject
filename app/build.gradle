@@ -4,12 +4,17 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -17,14 +22,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        free {
+            applicationId = "com.udacity.gradle.builditbigger.free"
+        }
+
+        paid {
+            applicationId = "com.udacity.gradle.builditbigger.paid"
+        }
+    }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Added for AdMob
+    freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.google.firebase:firebase-ads:9.0.2'
     compile project(path: ':backend', configuration: 'android-endpoints')
     compile project(path: ':joketeller')
 }
-apply plugin: 'com.google.gms.google-services'
+
